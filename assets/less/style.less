@@ -1,0 +1,130 @@
+@dark: #000000;
+@light: #F8DB01;
+@light: #FFFFFF;
+
+@body: #27ae60;
+@body: #f1c40f;
+
+@rp-logo: @dark;
+
+.hide, .hidden {
+	display: none !important;
+}
+
+.show {
+	display: inherit !important;
+}
+
+.position(@flex: 1, @orient :horizontal, @pack: center, @align: center) {
+	flex: @flex 0 auto;
+
+	display: -webkit-box;
+	-webkit-box-orient: @orient;
+	-webkit-box-pack: @pack;
+	-webkit-box-align: @align;
+
+	display: -moz-box;
+	-moz-box-orient: @orient;
+	-moz-box-pack: @pack;
+	-moz-box-align: @align;
+
+	display: box;
+	box-orient: @orient;
+	box-pack: @pack;
+	box-align: @align;
+}
+
+.border-radius(@radius) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+}
+
+* {
+	outline: none;
+}
+
+html, body, .rp-main {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+body {
+	background: @body;
+}
+
+a, button {
+	cursor: pointer;
+}
+
+h1 {
+	margin: 0;
+}
+
+table {
+	width: 100%;
+	height: 100%;
+	border-spacing: 0;
+    border-collapse: separate;
+    text-align: center;
+}
+
+audio { width: 500px; display: block; margin: 0 auto; }
+
+.rp-main {
+	.rp-logo {
+		position: fixed;
+		
+		@value: 3;
+			top: @value * 1%;
+			left: (@value/2) * 1%;
+
+		button, a {
+			font-family: 'Raleway', sans-serif;
+			font-weight: 100;
+			text-decoration: none;
+			color: @rp-logo;
+			padding: 10px;
+			display: block;
+			background: rgba(0, 0, 0, 0.1);
+
+			&.logo-two {
+				.hide();
+			}
+		}
+
+		&:hover {
+				button, a {
+					&.logo-one {
+						.hide();
+					}
+
+					&.logo-two {
+						.show();
+					}
+				}
+			}
+	}
+
+	.rp-table {
+		.rp-station-name {
+			color: @light;
+			font-family: 'Raleway', sans-serif;
+			font-weight: 100;
+		}
+
+		.rp-controls {
+			background: @light;
+
+			.btn {
+				color: @dark;
+				background: none;
+				border: 0;
+				font-size: 2em;
+				
+				// background: @body;
+			}
+		}
+	}
+}
