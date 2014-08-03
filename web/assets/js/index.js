@@ -21,6 +21,28 @@ function onLoad(data) {
     stream_url.src = radios[index].stream_url;
 }
 
+/* bind arrow keys */
+document.onkeydown = function(event) {
+    event = event || window.event;
+    switch (event.keyCode || event.which) {
+        case 37: // left
+            changeChannel(0);
+        break;
+
+        case 38: // up
+        break;
+
+        case 39: // right
+            changeChannel(1);
+        break;
+
+        case 40: // down
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+};
+
 function changeChannel(_index) {
 	if (_index == 0) {
 		if (hasRadio(index - 1)) {
