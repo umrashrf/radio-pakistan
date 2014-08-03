@@ -1,4 +1,5 @@
-var index = 0,
+var channel = 0,
+    volume = 10,
     radios = [];
 
 var station_name,
@@ -15,10 +16,10 @@ function onLoad(data) {
     radios = data;
 
     station_name = document.getElementById("rp-station-name");
-    station_name.innerHTML = radios[index].station_name;
+    station_name.innerHTML = radios[channel].station_name;
 
     stream_url = document.getElementById("rp-stream-url");
-    stream_url.src = radios[index].stream_url;
+    stream_url.src = radios[channel].stream_url;
 }
 
 /* bind arrow keys */
@@ -30,6 +31,7 @@ document.onkeydown = function(event) {
         break;
 
         case 38: // up
+            changeVolume(1);
         break;
 
         case 39: // right
@@ -37,32 +39,39 @@ document.onkeydown = function(event) {
         break;
 
         case 40: // down
+            changeVolume(-1);
         break;
 
         default: return; // exit this handler for other keys
     }
 };
 
-function changeChannel(_index) {
-	if (_index == 0) {
-		if (hasRadio(index - 1)) {
-			index = index - 1;
+function changeChannel(ichannel) {
+	if (ichannel == 0) {
+		if (hasRadio(channel - 1)) {
+			channel = channel - 1;
 		}
-	} else if (_index == 1) {
-		if (hasRadio(index + 1)) {
-			index = index + 1;
+	} else if (ichannel == 1) {
+		if (hasRadio(channel + 1)) {
+			channel = channel + 1;
 		}
 	}
 
-	station_name.innerHTML = radios[index].station_name;
-	stream_url.src = radios[index].stream_url;
+	station_name.innerHTML = radios[channel].station_name;
+	stream_url.src = radios[channel].stream_url;
     stream_url.play();
 }
 
-function hasRadio(_index) {
-	if (!(typeof radios[_index] == 'undefined')) {
+function hasRadio(ichannel) {
+	if (!(typeof radios[ichannel] == 'undefined')) {
 		return true;
 	} return false;
+}
+
+function changeVolume(diff) {
+    volume += diff;
+    volume = Math.min(Math.max(0, volume), 10);
+    stream_url.volume = volume / 10;
 }
 
 function loadJSON(path, success, error)
